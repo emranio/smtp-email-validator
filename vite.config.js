@@ -10,6 +10,7 @@ function inlineCssIntoHtml() {
     enforce: "post",
     apply: "build",
     generateBundle(_, bundle) {
+      // we're doing it for faster page loads by avoiding an extra round trip for CSS files, and also to prevent FOUC flashes in the current app setup where CSS is critical for proper rendering and user experience. Inlining CSS into HTML can be a good strategy for small to medium-sized stylesheets that are essential for the initial render, as it reduces the number of HTTP requests and can improve perceived performance. However, for larger stylesheets or when caching is beneficial, it might be better to keep CSS in separate files in future iterations of the app.
       const cssByPath = new Map();
 
       for (const [fileName, output] of Object.entries(bundle)) {
